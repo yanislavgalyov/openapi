@@ -1,0 +1,2495 @@
+{
+  "x-generator": "NSwag v13.15.10.0 (NJsonSchema v10.6.10.0 (Newtonsoft.Json v13.0.0.0))",
+  "openapi": "3.0.0",
+  "info": {
+    "title": "ССЕВ",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:5501"
+    }
+  ],
+  "paths": {
+    "/api/v1/messages/outbox": {
+      "get": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Връща списък с изпратени съобщения",
+        "operationId": "Messages_GetOutbox",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableResultDOOfOutboxDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/inbox": {
+      "get": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Връща списък с получени съобщения",
+        "operationId": "Messages_GetInbox",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableResultDOOfInboxDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Изпращане на съобщение",
+        "operationId": "Messages_Send",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "message",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageSendDO"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
+        "responses": {
+          "200": {
+            "description": "Публичен идентификатор на изпратеното съобщение",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/on-befalf": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Изпращане на съобщение от името на чужд профил",
+        "operationId": "Messages_SendOnBehalf",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "message",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageSendOnBehalfOfDO"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
+        "responses": {
+          "200": {
+            "description": "Публичен идентификатор на изпратеното съобщение",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/code": {
+      "post": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Изпращане на съобщение с код",
+        "operationId": "Messages_SendCode",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "message",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CodeMessageSendDO"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
+        "responses": {
+          "200": {
+            "description": "Публичен идентификатор на изпратеното съобщение",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/{messageId}/open": {
+      "get": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Преглед на получено съобщение",
+        "operationId": "Messages_Open",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "operatorLoginId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageOpenDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/messages/{messageId}/view": {
+      "get": {
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Преглед на изпратено съобщение",
+        "operationId": "Messages_View",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageViewDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles": {
+      "get": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Връща списък с активните профили в целева група",
+        "operationId": "Profiles_List",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "targetGroupId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 5
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableResultDOOfProfileDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/search": {
+      "get": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Връща профил по идентификатор (ЕГН/ЛНЧ/ЕИК) в целева група",
+        "operationId": "Profiles_SearchByIdentifier",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "seachProfileIdentifier",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          },
+          {
+            "name": "targetGroupId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileSearchDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/search-on-behalf": {
+      "get": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Връща профил по идентификатор (ЕГН/ЛНЧ/ЕИК) в целева група без ограничения, ако профила може да изпраща от името на чужд профил",
+        "operationId": "Profiles_SearchOnBehalfByIdentifier",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "seachProfileIdentifier",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          },
+          {
+            "name": "targetGroupId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileSearchDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profiles/register-individual": {
+      "post": {
+        "tags": [
+          "Profiles"
+        ],
+        "summary": "Пасивна регистрация на профил на ЮЛ, с цел получаване на съобщения и нотификации",
+        "operationId": "Profiles_RegisterIndividual",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "requestBody": {
+          "x-name": "profile",
+          "description": "Данни за регистрация на профил",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileRegisterDO"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 3
+        },
+        "responses": {
+          "200": {
+            "description": "Публичен идентификатор на регистрирания профил",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "guid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stats/messages/sent": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Връща статистика за изпратените съобщения за период",
+        "operationId": "Statistics_GetSentMessagesStatistics",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "description": "От дата",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "До дата",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageStatisticsDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stats/messages/received": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Връща статистика за получените съобщения за период",
+        "operationId": "Statistics_GetReceivedMessagesStatistics",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "description": "От дата",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "description": "До дата",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageStatisticsDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stats/messages/sent-by-month": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Връща статистика за изпратените съобщения по месеци",
+        "operationId": "Statistics_GetSentMessagesMonthlyStatistics",
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageMonthlyStatisticsDO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/stats/messages/received-by-month": {
+      "get": {
+        "tags": [
+          "Statistics"
+        ],
+        "summary": "Връща статистика за изпратените съобщения по месеци",
+        "operationId": "Statistics_GetReceivedMessagesMonthlyStatistics",
+        "parameters": [
+          {
+            "name": "month",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageMonthlyStatisticsDO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/target-groups": {
+      "get": {
+        "tags": [
+          "TargetGroups"
+        ],
+        "summary": "Връща списък с всички активни целеви групи",
+        "operationId": "TargetGroups_List",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TargetGroupDO"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/templates": {
+      "get": {
+        "tags": [
+          "Templates"
+        ],
+        "summary": "Връща списък с шаблоните на съобщението, до които профила има достъп",
+        "operationId": "Templates_List",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TableResultDOOfTemplateDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/templates/{templateId}": {
+      "get": {
+        "tags": [
+          "Templates"
+        ],
+        "summary": "Връща профил по идентификатор (ЕГН/ЛНЧ/ЕИК) в целева група",
+        "operationId": "Templates_Details",
+        "parameters": [
+          {
+            "name": "Dp-Miscinfo",
+            "x-originalName": "dpMiscinfo",
+            "in": "header",
+            "required": true,
+            "description": "Хедър, съдържащ персонален идентификатор",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "profileIdentifier",
+            "in": "query",
+            "required": true,
+            "description": "Идентификатор на профил",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "templateId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateDetailsDO"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TableResultDOOfOutboxDO": {
+        "type": "object",
+        "description": "Списък обекти, използван при странициране",
+        "additionalProperties": false,
+        "properties": {
+          "result": {
+            "type": "array",
+            "description": "Списък с обекти",
+            "items": {
+              "$ref": "#/components/schemas/OutboxDO"
+            }
+          },
+          "length": {
+            "type": "integer",
+            "description": "Общ брой обекти",
+            "format": "int32"
+          }
+        }
+      },
+      "OutboxDO": {
+        "type": "object",
+        "description": "Изпратено съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "messageId": {
+            "type": "integer",
+            "description": "Идентификатор на съобщение",
+            "format": "int32"
+          },
+          "dateSent": {
+            "type": "string",
+            "description": "Дата на изпращане",
+            "format": "date-time"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Заглавие на съобщение"
+          },
+          "senderProfileName": {
+            "type": "string",
+            "description": "Наименование на профила изпращач"
+          },
+          "senderLoginName": {
+            "type": "string",
+            "description": "Наименование на потребител, изпратил съобщението"
+          },
+          "recipients": {
+            "type": "string",
+            "description": "Получатели като текст"
+          },
+          "url": {
+            "type": "string",
+            "description": "Url за преглед на съобщението в ССЕВ"
+          }
+        }
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "additionalProperties": {
+          "nullable": true
+        },
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          },
+          "extensions": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        }
+      },
+      "TableResultDOOfInboxDO": {
+        "type": "object",
+        "description": "Списък обекти, използван при странициране",
+        "additionalProperties": false,
+        "properties": {
+          "result": {
+            "type": "array",
+            "description": "Списък с обекти",
+            "items": {
+              "$ref": "#/components/schemas/InboxDO"
+            }
+          },
+          "length": {
+            "type": "integer",
+            "description": "Общ брой обекти",
+            "format": "int32"
+          }
+        }
+      },
+      "InboxDO": {
+        "type": "object",
+        "description": "Получено съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "messageId": {
+            "type": "integer",
+            "description": "Идентификатор на съобщение",
+            "format": "int32"
+          },
+          "dateSent": {
+            "type": "string",
+            "description": "Дата на изпращане",
+            "format": "date-time"
+          },
+          "dateReceived": {
+            "type": "string",
+            "description": "Дата получаване/отваряне",
+            "format": "date-time",
+            "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "description": "Заглавие на съобщение"
+          },
+          "senderProfileName": {
+            "type": "string",
+            "description": "Наименование на профила изпращач"
+          },
+          "senderLoginName": {
+            "type": "string",
+            "description": "Наименование на потребител, изпратил съобщението"
+          },
+          "recipientProfileName": {
+            "type": "string",
+            "description": "Наименование на профила получател"
+          },
+          "recipientLoginName": {
+            "type": "string",
+            "description": "Наименование на потребител, получил съобщението"
+          },
+          "url": {
+            "type": "string",
+            "description": "Url за преглед на съобщението в ССЕВ"
+          }
+        }
+      },
+      "MessageSendDO": {
+        "type": "object",
+        "description": "Модел за изпращане на съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "recipientProfileIds": {
+            "type": "array",
+            "description": "Списък идентификатори на получатели",
+            "items": {
+              "type": "string",
+              "format": "guid"
+            }
+          },
+          "subject": {
+            "type": "string",
+            "description": "Заглавие на съобщението"
+          },
+          "templateId": {
+            "type": "integer",
+            "description": "Шаблон на съобщението",
+            "format": "int32"
+          },
+          "fields": {
+            "type": "object",
+            "description": "Списък с полетата и техните стойности в шаблона на съобщението, изключвайки прикачените документи, във формат (Идентификатор на поле, Стойност)",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "object",
+            "description": "Списък с файловите полета в шаблона на съобщението във формат (Идентификатор на файлово поле, Стойност от хранилището)",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "operatorLoginId": {
+            "type": "integer",
+            "description": "Идентификатор на потребител, извършващ действието от името на профила",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "MessageSendOnBehalfOfDO": {
+        "type": "object",
+        "description": "Модел за изпращане на съобщение от името на чужд профил",
+        "additionalProperties": false,
+        "properties": {
+          "recipientProfileIds": {
+            "type": "array",
+            "description": "Списък идентификатори на получатели",
+            "items": {
+              "type": "string",
+              "format": "guid"
+            }
+          },
+          "senderProfileId": {
+            "type": "string",
+            "description": "Идентификатор на изпращач",
+            "format": "guid"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Заглавие на съобщението"
+          },
+          "templateId": {
+            "type": "integer",
+            "description": "Шаблон на съобщението",
+            "format": "int32"
+          },
+          "fields": {
+            "type": "object",
+            "description": "Списък с полетата и техните стойности в шаблона на съобщението, изключвайки прикачените документи, във формат (Идентификатор на поле, Стойност)",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "object",
+            "description": "Списък с файловите полета в шаблона на съобщението във формат (Идентификатор на файлово поле, Стойност от хранилището)",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "operatorLoginId": {
+            "type": "integer",
+            "description": "Идентификатор на потребител, извършващ действието от името на профила",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "CodeMessageSendDO": {
+        "type": "object",
+        "description": "Модел за изпращане на съобщение с код",
+        "additionalProperties": false,
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "Собствено име на получател"
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Бащино име на получател",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Фамилия на получател"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Идентификатор (ЕГН/ЛНЧ) на получател"
+          },
+          "email": {
+            "type": "string",
+            "description": "Имейл на получател"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Телефона на получател"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Заглавие на съобщение"
+          },
+          "body": {
+            "type": "string",
+            "description": "Съдържание на съобщение"
+          },
+          "files": {
+            "type": "object",
+            "description": "Списък с файловите полета в шаблона на съобщението във формат (Идентификатор на файлово поле, Стойност от хранилището)",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "operatorLoginId": {
+            "type": "integer",
+            "description": "Идентификатор на потребител, извършващ действието от името на профила",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "MessageOpenDO": {
+        "type": "object",
+        "description": "Данни за получено съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "messageId": {
+            "type": "integer",
+            "description": "Идентификатор на съобщение",
+            "format": "int32"
+          },
+          "dateSent": {
+            "type": "string",
+            "description": "Дата на изпращане",
+            "format": "date-time"
+          },
+          "senderProfileId": {
+            "type": "integer",
+            "description": "Идентификатор на профил изпращач",
+            "format": "int32"
+          },
+          "senderProfileName": {
+            "type": "string",
+            "description": "Наименование на профил изпращач"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Заглавие на съобщение"
+          },
+          "templateId": {
+            "type": "integer",
+            "description": "Идентификатор на шаблон на съобщение",
+            "format": "int32"
+          },
+          "fields": {
+            "type": "object",
+            "description": "Списък с полета и техните стойности в шаблона на съобщението, изключвайки прикачените документи, във формат (Идентификатор на поле, Стойност)",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "array",
+            "description": "Списък с файлови полета и техните стойности в шаблона на съобщението",
+            "items": {
+              "$ref": "#/components/schemas/MessageOpenDOFile"
+            }
+          },
+          "operatorLoginId": {
+            "type": "integer",
+            "description": "Идентификатор на потребител, извършващ действието от името на профила",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "MessageOpenDOFile": {
+        "type": "object",
+        "description": "Прикачен файл към съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "Наименование на файл"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Големина на файл (bytes)",
+            "format": "int32"
+          },
+          "hash": {
+            "type": "string",
+            "description": "Хаш на файл",
+            "format": "byte",
+            "nullable": true
+          },
+          "hashAlgorithm": {
+            "type": "string",
+            "description": "Алгоритъм за пресмятане на хаш на файл",
+            "nullable": true
+          },
+          "downloadLink": {
+            "type": "string",
+            "description": "Линк за сваляне на файл"
+          },
+          "downloadLinkExpirationDate": {
+            "type": "string",
+            "description": "Дата и час за валидност на линка за сваляне на файл",
+            "format": "date-time"
+          }
+        }
+      },
+      "MessageViewDO": {
+        "type": "object",
+        "description": "Данни за изпратено съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "messageId": {
+            "type": "integer",
+            "description": "Идентификатор на съобщение",
+            "format": "int32"
+          },
+          "dateSent": {
+            "type": "string",
+            "description": "Дата на изпращане",
+            "format": "date-time"
+          },
+          "recipients": {
+            "type": "array",
+            "description": "Списък с получатели на съобщението",
+            "items": {
+              "$ref": "#/components/schemas/MessageViewDORecipient"
+            }
+          },
+          "subject": {
+            "type": "string"
+          },
+          "templateId": {
+            "type": "integer",
+            "description": "Идентификатор на шаблон на съобщение",
+            "format": "int32"
+          },
+          "fields": {
+            "type": "object",
+            "description": "Списък с полета и техните стойности в шаблона на съобщението, изключвайки прикачените документи, във формат (Идентификатор на поле, Стойност)",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "files": {
+            "type": "array",
+            "description": "Списък с файлови полета и техните стойности в шаблона на съобщението",
+            "items": {
+              "$ref": "#/components/schemas/MessageViewDOFile"
+            }
+          }
+        }
+      },
+      "MessageViewDORecipient": {
+        "type": "object",
+        "description": "Получател на съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "profileId": {
+            "type": "integer",
+            "description": "Идентификатор на профил получател",
+            "format": "int32"
+          },
+          "profileName": {
+            "type": "string",
+            "description": "Наименование на профил получател"
+          },
+          "dateReceived": {
+            "type": "string",
+            "description": "Дата на получаване на съобщение",
+            "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "MessageViewDOFile": {
+        "type": "object",
+        "description": "Прикачен файл към съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "Наименование на файл"
+          },
+          "size": {
+            "type": "integer",
+            "description": "Големина на файл (bytes)",
+            "format": "int32"
+          },
+          "hash": {
+            "type": "string",
+            "description": "Хаш на файл",
+            "format": "byte",
+            "nullable": true
+          },
+          "hashAlgorithm": {
+            "type": "string",
+            "description": "Алгоритъм за пресмятане на хаш на файл",
+            "nullable": true
+          },
+          "downloadLink": {
+            "type": "string",
+            "description": "Линк за сваляне на файл"
+          },
+          "downloadLinkExpirationDate": {
+            "type": "string",
+            "description": "Дата и час за валидност на линка за сваляне на файл",
+            "format": "date-time"
+          }
+        }
+      },
+      "TableResultDOOfProfileDO": {
+        "type": "object",
+        "description": "Списък обекти, използван при странициране",
+        "additionalProperties": false,
+        "properties": {
+          "result": {
+            "type": "array",
+            "description": "Списък с обекти",
+            "items": {
+              "$ref": "#/components/schemas/ProfileDO"
+            }
+          },
+          "length": {
+            "type": "integer",
+            "description": "Общ брой обекти",
+            "format": "int32"
+          }
+        }
+      },
+      "ProfileDO": {
+        "type": "object",
+        "description": "Профил",
+        "additionalProperties": false,
+        "properties": {
+          "profileId": {
+            "type": "string",
+            "description": "Публичен идентификатор на профил",
+            "format": "guid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование на профил"
+          },
+          "email": {
+            "type": "string",
+            "description": "Имейл на профил"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Телефон на профил"
+          }
+        }
+      },
+      "ProfileSearchDO": {
+        "type": "object",
+        "description": "Профил",
+        "additionalProperties": false,
+        "properties": {
+          "profileId": {
+            "type": "string",
+            "description": "Публичен идентификатор на профил",
+            "format": "guid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование на профил"
+          },
+          "email": {
+            "type": "string",
+            "description": "Имейл на профил"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Телефон на профил"
+          }
+        }
+      },
+      "ProfileRegisterDO": {
+        "type": "object",
+        "description": "Пасивна регистрация на профил на ЮЛ",
+        "additionalProperties": false,
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "description": "Идентификатор на профила ЕГН/ЛНЧ"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Собствено име"
+          },
+          "middleName": {
+            "type": "string",
+            "description": "Бащино име",
+            "nullable": true
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Фамилия"
+          },
+          "email": {
+            "type": "string",
+            "description": "Имейл за нотификация",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "description": "Телефон за нотификация",
+            "nullable": true
+          }
+        }
+      },
+      "MessageStatisticsDO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "MessageMonthlyStatisticsDO": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "month": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TargetGroupDO": {
+        "type": "object",
+        "description": "Целева група",
+        "additionalProperties": false,
+        "properties": {
+          "targetGroupId": {
+            "type": "integer",
+            "description": "Идентификатор на целева група",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование на целева група"
+          },
+          "canSelectRecipients": {
+            "type": "boolean",
+            "description": "Възможност за преглед на профили от целевата група и възможност за избиране на получатели от нея"
+          }
+        }
+      },
+      "TableResultDOOfTemplateDO": {
+        "type": "object",
+        "description": "Списък обекти, използван при странициране",
+        "additionalProperties": false,
+        "properties": {
+          "result": {
+            "type": "array",
+            "description": "Списък с обекти",
+            "items": {
+              "$ref": "#/components/schemas/TemplateDO"
+            }
+          },
+          "length": {
+            "type": "integer",
+            "description": "Общ брой обекти",
+            "format": "int32"
+          }
+        }
+      },
+      "TemplateDO": {
+        "type": "object",
+        "description": "Шаблон на съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "templateId": {
+            "type": "integer",
+            "description": "Идентификатор на шаблон",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование на шаблон"
+          },
+          "identityNumber": {
+            "type": "string",
+            "description": "Номер на шаблон"
+          },
+          "read": {
+            "description": "Мин. ниво на осигуреност нужно за получаване на съобщение със съответния шаблон",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TemplateSecurityLevel"
+              }
+            ]
+          },
+          "write": {
+            "description": "Мин. ниво на осигуреност нужно за изпращане на съобщение със съответния шаблон",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TemplateSecurityLevel"
+              }
+            ]
+          },
+          "responseTemplateId": {
+            "type": "integer",
+            "description": "Шаблон на съобщение при отговор",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "TemplateSecurityLevel": {
+        "type": "integer",
+        "description": "Ниво на осигуреност на шаблон на съобщение",
+        "x-enumNames": [
+          "LOW",
+          "MEDIUM",
+          "HIGH"
+        ],
+        "enum": [
+          1,
+          2,
+          3
+        ]
+      },
+      "TemplateDetailsDO": {
+        "type": "object",
+        "description": "Шаблон на съобщение",
+        "additionalProperties": false,
+        "properties": {
+          "templateId": {
+            "type": "integer",
+            "description": "Идентификатор на шаблон",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "description": "Наименование на шаблон"
+          },
+          "identityNumber": {
+            "type": "string",
+            "description": "Номер на шаблон"
+          },
+          "read": {
+            "description": "Мин. ниво на осигуреност нужно за получаване на съобщение със съответния шаблон",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TemplateSecurityLevel"
+              }
+            ]
+          },
+          "write": {
+            "description": "Мин. ниво на осигуреност нужно за изпращане на съобщение със съответния шаблон",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/TemplateSecurityLevel"
+              }
+            ]
+          },
+          "content": {
+            "type": "array",
+            "description": "Списък с полетата в шаблона",
+            "items": {
+              "$ref": "#/components/schemas/BaseComponent"
+            }
+          },
+          "responseTemplateId": {
+            "type": "integer",
+            "description": "Шаблон на съобщение при отговор",
+            "format": "int32",
+            "nullable": true
+          }
+        }
+      },
+      "BaseComponent": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "discriminator",
+          "mapping": {
+            "CheckboxComponent": "#/components/schemas/CheckboxComponent",
+            "FileComponent": "#/components/schemas/FileComponent",
+            "ValueComponent": "#/components/schemas/ValueComponent",
+            "DateTimeComponent": "#/components/schemas/DateTimeComponent",
+            "HiddenComponent": "#/components/schemas/HiddenComponent",
+            "SelectComponent": "#/components/schemas/SelectComponent",
+            "TextAreaComponent": "#/components/schemas/TextAreaComponent",
+            "TextFieldComponent": "#/components/schemas/TextFieldComponent"
+          }
+        },
+        "description": "Базов клас за поле в шаблон",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "required": [
+          "discriminator"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Идентификатор на поле",
+            "format": "guid"
+          },
+          "label": {
+            "type": "string",
+            "description": "Наименование на поле"
+          },
+          "type": {
+            "description": "Тип на поле",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ComponentType"
+              }
+            ]
+          },
+          "isEncrypted": {
+            "type": "boolean",
+            "description": "Дали данните от полето се криптират"
+          },
+          "isRequired": {
+            "type": "boolean",
+            "description": "Дали полето е задължително за попълване"
+          },
+          "discriminator": {
+            "type": "string"
+          }
+        }
+      },
+      "ComponentType": {
+        "type": "string",
+        "description": "",
+        "x-enumNames": [
+          "hidden",
+          "textfield",
+          "textarea",
+          "datetime",
+          "checkbox",
+          "select",
+          "file"
+        ],
+        "enum": [
+          "hidden",
+          "textfield",
+          "textarea",
+          "datetime",
+          "checkbox",
+          "select",
+          "file"
+        ]
+      },
+      "CheckboxComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseComponent"
+          },
+          {
+            "type": "object",
+            "description": "Поле тип \"checkbox\"",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "boolean",
+                "description": "Стойност на полето"
+              }
+            }
+          }
+        ]
+      },
+      "FileComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseComponent"
+          },
+          {
+            "type": "object",
+            "description": "Поле тип \"file\"",
+            "additionalProperties": false,
+            "properties": {
+              "maxSize": {
+                "type": "integer",
+                "description": "Максимална големина на прикачения файл",
+                "format": "int32"
+              },
+              "allowedExtensions": {
+                "type": "string",
+                "description": "Позволени вид файлове"
+              },
+              "instances": {
+                "type": "integer",
+                "description": "Максимален брой прикачени файлове",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "ValueComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseComponent"
+          },
+          {
+            "type": "object",
+            "x-abstract": true,
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string",
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "DateTimeComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueComponent"
+          },
+          {
+            "type": "object",
+            "description": "Поле тип \"datetime\"\n            ",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "HiddenComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueComponent"
+          },
+          {
+            "type": "object",
+            "description": "Поле тип \"hidden\"\n            ",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "SelectComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueComponent"
+          },
+          {
+            "type": "object",
+            "description": "Поле тип \"select\"\n            ",
+            "additionalProperties": false,
+            "properties": {
+              "url": {
+                "type": "string",
+                "description": "Url за зареждане на възможните стойности на полето",
+                "nullable": true
+              },
+              "options": {
+                "type": "array",
+                "description": "Списък с възможни стойности на полето",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "TextAreaComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueComponent"
+          },
+          {
+            "type": "object",
+            "description": "Поле тип \"textarea\"\n            ",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "TextFieldComponent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ValueComponent"
+          },
+          {
+            "type": "object",
+            "description": "Поле тип \"textfield\"\n            ",
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  }
+}
